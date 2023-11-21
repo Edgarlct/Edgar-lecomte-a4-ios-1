@@ -8,9 +8,10 @@ import Foundation
 
 struct WorkoutProgram: Identifiable {
     var id = UUID()
-    var image: String
+    var image: String // is an url
     var title: String
     var description: String
     var duration: Int // Duration in minutes
+    var category: Category?
 }
 

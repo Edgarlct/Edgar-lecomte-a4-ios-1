@@ -9,7 +9,7 @@ import SwiftUI
 
 struct WorkoutDetailView: View {
     @State private var isEditing = false
-    @ObservedObject var viewModel: WorkoutProgramViewModel
+    @ObservedObject var viewModel: WorkoutViewModel
     var workout: WorkoutProgram
 
     var body: some View {

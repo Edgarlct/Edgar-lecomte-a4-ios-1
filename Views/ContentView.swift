@@ -14,7 +14,7 @@ struct ContentView: View {
                 HomeView()
             }
             .tabItem {
-                Label("Page 1", systemImage: "house.fill")
+                Label("Acceuil", systemImage: "house.fill")
             }
 
             NavigationView {
@@ -22,14 +22,6 @@ struct ContentView: View {
             }
             .tabItem {
                 Label("Page 2", systemImage: "person.fill")
-            }
-
-            // List program
-            NavigationView {
-                WorkoutsListView()
-            }
-            .tabItem {
-                Label("Program", systemImage: "figure.core.training")
             }
         }
     }

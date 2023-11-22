@@ -44,8 +44,10 @@ struct HomeView: View {
                 }.padding(.horizontal)
                 if viewModel.filteredExercises.isEmpty {
                     Text("No exercises found for this category.")
-                    Button("Clear Filter") {
-                        viewModel.clearSelection()
+                    if viewModel.selectedCategory != nil {
+                        Button("Clear Filter") {
+                            viewModel.clearSelection()
+                        }
                     }
                 } else {
                     ForEach(viewModel.filteredExercises) { exercise in
@@ -101,7 +103,9 @@ struct ExerciseCard: View {
     var body: some View {
         VStack {
             AsyncImage(url: URL(string: exercise.image)) { image in
-                image.resizable()
+                image
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
             } placeholder: {
                 ProgressView()
             }

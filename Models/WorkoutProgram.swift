@@ -6,7 +6,7 @@
 //
 import Foundation
 
-struct WorkoutProgram: Identifiable {
+struct WorkoutProgram: Identifiable, Codable {
     var id = UUID()
     var image: String // is an url
     var title: String

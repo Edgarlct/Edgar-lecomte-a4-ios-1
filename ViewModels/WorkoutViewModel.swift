@@ -19,11 +19,8 @@ class WorkoutViewModel: ObservableObject {
             Category(name: "Yoga", imageUrl: "https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg"),
             Category(name: "Pilates", imageUrl: "https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg")
         ]
-        exercises = [
-            WorkoutProgram(image:"https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg", title: "pilat", description: "test", duration: 10, category: categories[0]),
-            WorkoutProgram(image:"https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg", title: "pilat1", description: "test", duration: 10, category: categories[1]),
-            WorkoutProgram(image:"https://helpx.adobe.com/content/dam/help/en/photoshop/using/convert-color-image-black-white/jcr_content/main-pars/before_and_after/image-before/Landscape-Color.jpg", title: "pilat3", description: "test", duration: 10, category: categories[2])
-        ]
+        
+        loadExercises()
     }
     
     var filteredExercises: [WorkoutProgram] {
@@ -49,6 +46,7 @@ class WorkoutViewModel: ObservableObject {
     // Add a new workout
     func addWorkout(_ workout: WorkoutProgram) {
         exercises.append(workout)
+        saveExercises()
     }
     
     // Update an existing workout
@@ -56,10 +54,28 @@ class WorkoutViewModel: ObservableObject {
         if let index = exercises.firstIndex(where: { $0.id == workout.id }) {
             exercises[index] = workout
         }
+        saveExercises()
     }
     
     // Delete a workout
     func deleteWorkout(at offsets: IndexSet) {
         exercises.remove(atOffsets: offsets)
+        saveExercises()
+    }
+    
+    private func saveExercises() {
+        if let encoded = try? JSONEncoder().encode(exercises) {
+            UserDefaults.standard.set(encoded, forKey: "SavedExercises")
+        }
+    }
+    
+    private func loadExercises() {
+        if let savedExercises = UserDefaults.standard.object(forKey: "SavedExercises") as? Data {
+            if let decodedExercises = try? JSONDecoder().decode([WorkoutProgram].self, from: savedExercises) {
+                exercises = decodedExercises
+                return
+            }
+        }
+        exercises = []
     }
 }

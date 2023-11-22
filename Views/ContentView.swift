@@ -18,7 +18,7 @@ struct ContentView: View {
             }
 
             NavigationView {
-                ProfilView()
+                CaloriesCalculatorView()
             }
             .tabItem {
                 Label("Page 2", systemImage: "person.fill")

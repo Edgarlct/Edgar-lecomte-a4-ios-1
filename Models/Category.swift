@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Category: Identifiable {
+struct Category: Identifiable, Codable {
     let id: UUID = UUID()
     let name: String
     let imageUrl: String // URL for background image
